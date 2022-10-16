@@ -3,7 +3,7 @@ import MySQLdb
 def conectar():
     """
     Função para conectar ao servidor
-    :return: conn
+    :return connection:
     """
     try:
         conn = MySQLdb.connect(
@@ -15,3 +15,12 @@ def conectar():
         return conn
     except MySQLdb.Error as e:
         print(f'Erro na conexão ao MySQL Server: {e}')
+
+def desconectar(conn):
+    """
+    Função para desconectar do servidor
+    :param conn:
+    :return:
+    """
+    if conn:
+        conn.close()
