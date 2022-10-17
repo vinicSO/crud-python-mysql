@@ -118,3 +118,27 @@ def deletar():
         print('Não foi possível deletar o produto.')
 
     desconectar(conn)
+
+def menu():
+    """
+    Função para gerar o menu inicial
+    :return:
+    """
+    print('===========Gerenciamento de Produtos===========')
+    print('\n1 - Listar produtos')
+    print('\n2 - Inserir produto')
+    print('\n3 - Atualizar produto')
+    print('\n4 - Deletar produto')
+
+    opcao = int(input('\nSelecione uma opção:'))
+
+    if opcao == 1:
+        listar()
+    elif opcao == 2:
+        inserir()
+    elif opcao == 3:
+        atualizar()
+    elif opcao == 4:
+        deletar()
+    else:
+        print('Opção inválida!')
