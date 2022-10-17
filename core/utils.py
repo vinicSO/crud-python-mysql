@@ -97,3 +97,24 @@ def atualizar():
         print('Não foi possível atualizar o produto.')
 
     desconectar(conn)
+
+
+def deletar():
+    """
+    Função para deletar produto
+    :return:
+    """
+    conn = conectar()
+    cursor = conn.cursor()
+
+    id = int(input('Informe o id do produto que deseja deletar: '))
+
+    cursor.execute(f'DELETE FROM produto WHERE id = {id}')
+    conn.commit()
+
+    if cursor.rowcount == 1:
+        print(f'O produto com ID = {id} foi deletado com sucesso.')
+    else:
+        print('Não foi possível deletar o produto.')
+
+    desconectar(conn)
