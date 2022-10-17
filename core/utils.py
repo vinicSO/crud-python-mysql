@@ -16,6 +16,7 @@ def conectar():
     except MySQLdb.Error as e:
         print(f'Erro na conexão ao MySQL Server: {e}')
 
+
 def desconectar(conn):
     """
     Função para desconectar do servidor
@@ -29,7 +30,7 @@ def desconectar(conn):
 def listar():
     """
     Função para listar os produtos
-    :return:
+    :return string:
     """
     conn = conectar()
     cursor = conn.cursor()
@@ -47,4 +48,28 @@ def listar():
             print('-------------------')
     else:
         print('Não possui registros')
+
+    desconectar(conn)
+
+
+def inserir():
+    """
+    Função para inserir um produto
+    :return string:
+    """
+    conn = conectar()
+    cursor = conn.cursor()
+
+    nome = input('Informe o nome do produto: ')
+    preco = float(input(f'Informe o preço do(a) {nome.upper()}: '))
+    estoque = int(input(f'Informe o quantidade do(a) {nome.upper()} em estoque: '))
+
+    cursor.execute(f"INSERT INTO produto (nome, preco, estoque) VALUES ('{nome}', {preco}, {estoque})")
+    conn.commit()
+
+    if cursor.rowcount == 1:
+        print(f'O produto {nome.upper()} foi inserido com sucesso.')
+    else:
+        print('Não foi possível inserir o produto')
+
     desconectar(conn)
