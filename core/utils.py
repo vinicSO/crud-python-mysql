@@ -64,12 +64,36 @@ def inserir():
     preco = float(input(f'Informe o preço do(a) {nome.upper()}: '))
     estoque = int(input(f'Informe o quantidade do(a) {nome.upper()} em estoque: '))
 
-    cursor.execute(f"INSERT INTO produto (nome, preco, estoque) VALUES ('{nome}', {preco}, {estoque})")
+    cursor.execute(f"INSERT INTO produto (nome, preco, estoque) VALUES ('{nome}', {preco}, {estoque});")
     conn.commit()
 
     if cursor.rowcount == 1:
         print(f'O produto {nome.upper()} foi inserido com sucesso.')
     else:
-        print('Não foi possível inserir o produto')
+        print('Não foi possível inserir o produto.')
+
+    desconectar(conn)
+
+
+def atualizar():
+    """
+    Função para atualizar um produto
+    :return:
+    """
+    conn = conectar()
+    cursor = conn.cursor()
+
+    id = int(input('Informe o ID do produto que deseja atualiar: '))
+    nome = input('Informe o novo nome para o produto: ')
+    preco = float(input('Informe o novo preço para o produto: '))
+    estoque = int(input('Informe a nova quantidade do produto em estoque: '))
+
+    cursor.execute(f"UPDATE produto SET nome = '{nome}', preco = {preco}, estoque = {estoque} WHERE id = {id};")
+    conn.commit()
+
+    if cursor.rowcount == 1:
+        print(f'O produto {nome.upper()} foi atualizado com sucesso.')
+    else:
+        print('Não foi possível atualizar o produto.')
 
     desconectar(conn)
